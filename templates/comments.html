@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Comments
+{% endblock %}
+
+{% block main %}
+<h2 style="text-align: center;">My comments</h2>
+<div class="d-flex justify-content-start">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Post title</th>
+                    <th>Comment</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for comment in comments %}
+                    <tr>
+                        <td>{{comment["title"]}}</td>
+                        <td>{{comment["content"] | safe}}</td>
+                        <td>{{comment["date"]}}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
+{% endblock %}

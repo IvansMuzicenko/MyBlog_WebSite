@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block title %}
+ADMIN PANEL
+{% endblock %}
+
+{% block main %}
+<div style="text-align: center; color: blue;">
+    <h1>ADMIN PANEL</h1>
+</div>
+<a class="btn btn-outline-info btn-lg btn-block" style="margin: 50px 0 50px 0;" href="/addpost" role="button" >+ ADD NEW POST +</a>
+<h2>Posts on site</h2>
+<div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <div class="col-md-8">
+                        <th style="width: 80px">Post id</th>
+                        <th>Post title</th>
+                        <th style="width: 200px">Post date</th>
+                    </div>
+                    <div class="col-md-4">
+                        <th style="width: 250px">
+                            <a href="/deleteall" type="button" class="btn btn-danger">DELETE ALL</a>
+                        </th>
+                    </div>
+                </tr>
+            </thead>
+            <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>{{post["id"]}}</td>
+                    <td>{{post["title"]}}</td>
+                    <td>{{post["date"]}}</td>
+                    <td>
+                        <a href="/edit{{post["id"]}}" type="button" class="btn btn-outline-info">EDIT</a>
+                        <a href="/delete{{post["id"]}}" type="button" class="btn btn-outline-danger">DELETE</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+</div>
+<hr>
+<h2>Deleted posts</h2>
+<div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <div class="col-md-8">
+                        <th style="width: 80px">Post id</th>
+                        <th>Post title</th>
+                        <th style="width: 200px">Post date</th>
+                    </div>
+                    <div class="col-md-4">
+                        <th style="width: 250px">
+                            <a href="/recoverall" type="button" class="btn btn-outline-info">RECOVER ALL</a>
+                            <a href="/fulldeleteall" type="button" class="btn btn-danger">FULLY DELETE ALL</a>
+                        </th>
+                    </div>
+                </tr>
+            </thead>
+            <tbody>
+            {% for post in del_posts %}
+                <tr>
+                    <td>{{post["id"]}}</td>
+                    <td>{{post["title"]}}</td>
+                    <td>{{post["date"]}}</td>
+                    <td>
+                        <a href="/recover{{post["id"]}}" type="button" class="btn btn-outline-info">RECOVER</a>
+                        <a href="/fulldelete{{post["id"]}}" type="button" class="btn btn-outline-danger">FULLY DELETE</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+{% endblock %}
+{% block scripts %}
+<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+
+<div class="blog-post">
+    <h2 class="blog-post-title">{{post["title"]}}</h2>
+    <p class="blog-post-meta">{{post["date"]}} </p>
+    <hr>
+    {{post["content"] | safe}}
+</div>
+<hr>
+<h3 class="blog-post-title">Comments</h3>
+<hr>
+{% for comment in comments%}
+<div class="row">
+  <div class="col-md-2">
+      User: {{comment["username"]}}<br>
+      {{comment["date"]}}
+  </div>
+  <div class="col-md-10">
+      {{comment["content"] | safe}}<br>
+  </div>
+</div>
+<hr>
+{% endfor %}
+{% if session.user_id %}
+<form id="editor-form" action="/post/{{post["id"]}}" method="post">
+    <div class="form-group">
+
+        <div id="editor-container" style="min-height: 100px;" class="form-control">
+        </div>
+        <input id="editor-input" type="hidden" name="comment">
+
+        <button class="btn btn-primary" type="submit">Submit comment</button>
+    </div>
+</form>
+<script>
+var quill = new Quill('#editor-container', {
+  modules: {
+    toolbar: [
+      ['bold', 'italic'],
+      ['link', 'blockquote', 'code-block', 'image'],
+      [{ list: 'ordered' }, { list: 'bullet' }]
+    ]
+  },
+  placeholder: 'Comment',
+  theme: 'snow'
+});
+$("#editor-form").on("submit",function(){
+$("#editor-input").val($("#editor-container .ql-editor").html());
+})
+</script>
+{% else %}
+<div class="alert alert-info" role="alert">
+  <a href="/login">Log In</a> to write comments!
+</div>
+
+
+{% endif %}
+{% endblock %}
