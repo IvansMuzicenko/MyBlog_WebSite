@@ -1,0 +1,37 @@
+main {
+    margin-top: 4rem;
+}
+
+#themeChange {
+    transition: 0.8s all;
+}
+
+.colRandom {
+    color: black;
+    transition: 1s all;
+}
+
+
+.btn-group button img {
+    width: 1rem;
+    height: 1rem;
+}
+
+.shadow-light{
+    box-shadow: 0 5px 11px 0 white,
+0 4px 15px 0 white;
+}
+
+#switchTheme{
+    border: 1px solid grey;
+    border-radius: 0.3rem;
+}
+
+#mainNav{
+    transition: 0.8s all ;
+}
+
+.bg-secondary{
+    background-color: lightgrey !important;
+}
+
